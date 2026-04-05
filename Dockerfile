@@ -59,4 +59,5 @@ config = { \
     } \
 }; \
 with open(os.path.join(home, 'config.json'), 'w') as f: \
-    json.dump(config, f)\" && python3 -m nanobot gateway"
+    json.dump(config, f)\" \
+&& python3 -m nanobot serve"
