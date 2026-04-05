@@ -40,4 +40,4 @@ EXPOSE 18790
 
 ENTRYPOINT ["/bin/bash","-c"]
 
-CMD ["echo $TELEGRAM_TOKEN && python3 -m nanobot gateway --config /root/.nanobot/config.json"]
+CMD ["sh","-c","mkdir -p /root/.nanobot && printf '{\"channels\":{\"telegram\":{\"enabled\":true,\"token\":\"%s\",\"allowFrom\":[],\"groupPolicy\":\"mention\"}},\"agent\":{\"provider\":\"openrouter\",\"model\":\"%s\",\"apiKey\":\"%s\"}}' \"$TELEGRAM_TOKEN\" \"$MODEL\" \"$OPENROUTER_API_KEY\" > /root/.nanobot/config.json && python3 -m nanobot gateway --config /root/.nanobot/config.json"]
