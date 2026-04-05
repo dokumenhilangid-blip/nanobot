@@ -39,4 +39,24 @@ RUN mkdir -p /root/.nanobot
 EXPOSE 18790
 
 ENTRYPOINT ["/bin/bash","-c"]
-CMD ["python3 -c \"import json,os;open('config.json','w').write(json.dumps({'model':os.getenv('MODEL'),'provider':'openrouter','openrouter_api_key':os.getenv('OPENROUTER_API_KEY'),'telegram_token':os.getenv('TELEGRAM_TOKEN')}))\" && python3 -m nanobot"]
+# Gunakan shell form supaya variabel environment ($) terbaca
+CMD sh -c "python3 -c \"import json, os; \
+home = os.path.expanduser('~/.nanobot'); \
+os.makedirs(home, exist_ok=True); \
+config = { \
+    'channels': { \
+        'telegram': { \
+            'enabled': True, \
+            'token': os.getenv('TELEGRAM_TOKEN'), \
+            'allowFrom': [], \
+            'groupPolicy': 'mention' \
+        } \
+    }, \
+    'agent': { \
+        'provider': 'openrouter', \
+        'model': os.getenv('MODEL'), \
+        'apiKey': os.getenv('OPENROUTER_API_KEY') \
+    } \
+}; \
+with open(os.path.join(home, 'config.json'), 'w') as f: \
+    json.dump(config, f)\" && python3 -m nanobot gateway"
