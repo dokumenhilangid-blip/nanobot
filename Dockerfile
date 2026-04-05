@@ -38,5 +38,4 @@ RUN mkdir -p /root/.nanobot
 # Gateway default port
 EXPOSE 18790
 
-ENTRYPOINT ["nanobot"]
-CMD ["bash", "-c", "python3 -c \"import json,os;open('config.json','w').write(json.dumps({'model':os.getenv('MODEL'),'provider':'openrouter','openrouter_api_key':os.getenv('OPENROUTER_API_KEY'),'telegram_token':os.getenv('TELEGRAM_TOKEN')}))\" && node bridge/server.js"]
+CMD ["bash", "-c", "python3 -c \"import json,os;open('config.json','w').write(json.dumps({'model':os.getenv('MODEL'),'provider':'openrouter','openrouter_api_key':os.getenv('OPENROUTER_API_KEY'),'telegram_token':os.getenv('TELEGRAM_TOKEN')}))\" && node bridge/dist/index.js"]
