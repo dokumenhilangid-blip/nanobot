@@ -40,4 +40,4 @@ EXPOSE 18790
 
 ENTRYPOINT ["/bin/bash","-c"]
 
-CMD ["sh","-c","mkdir -p /root/.nanobot && printf '{\"channels\":{\"telegram\":{\"enabled\":true,\"token\":\"%s\"}},\"agent\":{\"provider\":\"openrouter\",\"model\":\"%s\",\"apiKey\":\"%s\"}}' \"$TELEGRAM_TOKEN\" \"$MODEL\" \"$OPENROUTER_API_KEY\" > /root/.nanobot/config.json && python3 -m nanobot gateway --config /root/.nanobot/config.json"]
+CMD ["sh","-c","mkdir -p /root/.nanobot && printf '{\"channels\":{\"telegram\":{\"enabled\":true,\"token\":\"%s\"}},\"agent\":{\"provider\":\"openrouter\",\"model\":\"%s\",\"apiKey\":\"%s\"}}' \"$TELEGRAM_TOKEN\" \"$MODEL\" \"$OPENROUTER_API_KEY\" > /root/.nanobot/config.json && python3 -m nanobot gateway --config /root/.nanobot/config.json --host 0.0.0.0 --port 18790 || sleep infinity"]
